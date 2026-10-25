@@ -3,47 +3,56 @@
 @media(max-width:900px){.hero{padding-top:55px;grid-template-columns:1fr .8fr;gap:10px}.hero-art{transform:scale(.9)}.prompt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.section{padding-top:70px;padding-bottom:70px}.creator-cta{flex-wrap:wrap}.cta-star{display:none}}
 @media(max-width:650px){.site-header{height:70px;padding:0 16px}.brand-mark{width:36px;height:36px}.brand-name{font-size:11px}.desktop-nav{display:none}.header-admin{font-size:10px;padding:9px 11px}.hero{display:flex;flex-direction:column;align-items:stretch;padding:48px 22px 34px;gap:0}.hero h1{font-size:54px;letter-spacing:-2.5px}.hero-sub{font-size:13px}.hero-art{height:350px;margin-top:18px;transform:none}.hero-avatar-wrap{width:100%;max-width:360px}.hero-avatar{object-fit:contain}.tag-top{right:0;top:28px}.tag-bottom{left:-2px;bottom:18px;font-size:8px}.stats-row{margin:0 22px;grid-template-columns:repeat(2,1fr);gap:20px;padding:22px 0}.stats-row div{padding-left:14px}.stats-row div:nth-child(3){border:0;padding-left:0}.stats-row strong{font-size:19px}.stats-row span{font-size:8px}.section{padding:65px 22px}.section-heading{align-items:flex-start;flex-direction:column}.section-heading h2{font-size:38px}.section-heading p{margin:0}.category-list{gap:7px}.category-chip{font-size:10px;padding:10px 12px}.prompt-section{padding-top:0}.prompt-heading{gap:20px}.search-wrap{width:100%}.prompt-grid{grid-template-columns:1fr;gap:15px}.prompt-image{height:210px}.prompt-body{padding:16px}.prompt-excerpt{min-height:0}.creator-cta{margin:0 22px 55px;padding:27px 22px;gap:15px}.creator-cta h2{font-size:33px}.creator-cta .button{width:100%}.site-footer{padding:22px;flex-wrap:wrap}.site-footer span{order:3;width:100%}.form-grid{grid-template-columns:1fr}.admin-dialog{padding:20px}.admin-dialog .dialog-top h2{font-size:26px}}
 
-/* PR7 Floating 3D Avatar */
+
+/* PR7 — Cinematic 3D Character */
 .hero-avatar {
   display: block;
-  width: 220px;
-  max-width: 100%;
+  width: min(340px, 100%);
   height: auto;
   object-fit: contain;
-
-  transform-style: preserve-3d;
+  position: relative;
   transform-origin: center bottom;
+  transform-style: preserve-3d;
 
   filter:
-    drop-shadow(0 12px 12px rgba(0, 0, 0, 0.35))
-    drop-shadow(0 0 18px rgba(80, 120, 255, 0.18));
+    drop-shadow(0 18px 18px rgba(0, 0, 0, 0.55))
+    drop-shadow(-12px 0 22px rgba(255, 35, 55, 0.22))
+    drop-shadow(12px 0 24px rgba(30, 110, 255, 0.25));
 
-  animation: pr7Float3D 4s ease-in-out infinite;
-  will-change: transform;
+  animation: pr7CharacterFloat 5s ease-in-out infinite;
+  transition: filter 0.4s ease;
 }
 
-@keyframes pr7Float3D {
+@keyframes pr7CharacterFloat {
   0%, 100% {
-    transform: perspective(900px)
-      translateY(0) rotateY(-5deg) rotateX(1deg);
+    transform: perspective(1000px)
+      translate3d(0, 0, 0)
+      rotateY(-4deg) rotateX(1deg);
   }
 
   50% {
-    transform: perspective(900px)
-      translateY(-18px) rotateY(5deg) rotateX(-1deg);
+    transform: perspective(1000px)
+      translate3d(0, -12px, 12px)
+      rotateY(4deg) rotateX(-1deg);
   }
 }
 
-/* Mobile screen */
+.hero-avatar:hover {
+  filter:
+    drop-shadow(0 25px 24px rgba(0, 0, 0, 0.6))
+    drop-shadow(-12px 0 26px rgba(255, 35, 55, 0.32))
+    drop-shadow(12px 0 28px rgba(30, 110, 255, 0.35));
+}
+
 @media (max-width: 600px) {
   .hero-avatar {
-    width: 170px;
+    width: min(240px, 85vw);
   }
 }
 
-/* Respect reduced-motion settings */
 @media (prefers-reduced-motion: reduce) {
   .hero-avatar {
     animation: none;
   }
 }
+
