@@ -56,3 +56,33 @@
   }
 }
 
+/* Prompt image: always visible */
+.prompt-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  cursor: default;
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+/* Copy button below image */
+.copy-prompt-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 10px;
+  background: #7c3aed;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.copy-prompt-btn:hover {
+  background: #6d28d9;
+}
+
