@@ -46,6 +46,16 @@
     $("promptGrid").classList.toggle("hidden", filtered.length === 0);
     $("promptGrid").querySelectorAll("[data-copy]").forEach(btn => btn.addEventListener("click", () => copyPrompt(btn.dataset.copy)));
   }
+  $("promptGrid").querySelectorAll(".prompt-image").forEach(box => {
+  const img = box.querySelector("img");
+  if (!img) return;
+
+  box.style.cursor = "zoom-in";
+
+  box.addEventListener("click", () => {
+    window.open(img.src, "_blank", "noopener,noreferrer");
+  });
+});
   async function copyPrompt(id) {
     const p = prompts.find(x => String(x.id) === String(id)); if (!p) return;
     try {
