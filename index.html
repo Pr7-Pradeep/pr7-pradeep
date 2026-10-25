@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090b">
+  <meta name="description" content="Discover cinematic AI photo and video prompts. Copy prompts and create your own visuals with Pr7 AI Prompts.">
+  <title>Pr7 AI Prompts — Cinematic AI Inspiration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Pr7 AI Prompts home">
+      <span class="brand-mark">P<span>7</span></span>
+      <span class="brand-name">PR7 <b>AI PROMPTS</b><small>CREATE YOUR NEXT LOOK</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#about">About</a>
+    </nav>
+    <button class="button button-outline header-admin" id="adminOpen">Admin Login</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="live-dot"></span> YOUR AI CREATIVE LIBRARY</div>
+        <h1>Make your next<br><span class="gradient-text">look iconic.</span></h1>
+        <p class="hero-sub">Discover cinematic photo prompts, copy them in one tap, and bring your imagination to life.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#explore">Explore Prompts <span aria-hidden="true">↗</span></a>
+          <a class="button button-quiet" href="#categories">Browse categories</a>
+        </div>
+        <div class="hero-proof"><span class="proof-stars">✦ ✦ ✦</span><span>Made for creators, by creators</span></div>
+      </div>
+      <div class="hero-art" aria-label="Cinematic portrait artwork">
+        <div class="hero-art-glow"></div>
+        <div class="hero-art-frame">
+          <div class="hero-art-image">
+            <div class="art-orb"></div><div class="art-person-head"></div><div class="art-person-body"></div>
+            <div class="art-light art-light-red"></div><div class="art-light art-light-blue"></div>
+            <div class="art-caption"><span>01 / VISUAL STUDY</span><b>THE CINEMATIC PORTRAIT</b></div>
+          </div>
+        </div>
+        <div class="floating-tag tag-top"><span>✦</span> AI READY PROMPTS</div>
+        <div class="floating-tag tag-bottom"><span class="mini-spark">✧</span> YOUR NEXT CREATION STARTS HERE</div>
+      </div>
+    </section>
+
+    <section class="stats-row" aria-label="Website highlights">
+      <div><strong id="promptCount">06</strong><span>STARTER PROMPTS</span></div>
+      <div><strong>1-TAP</strong><span>QUICK COPY</span></div>
+      <div><strong>4K+</strong><span>INSPIRED LOOKS</span></div>
+      <div><strong>PR7</strong><span>CREATOR CULTURE</span></div>
+    </section>
+
+    <section class="section categories-section" id="categories">
+      <div class="section-heading">
+        <div><div class="eyebrow">FIND YOUR AESTHETIC</div><h2>Explore <span class="gradient-text">categories</span></h2></div>
+        <p>One idea can change the whole frame.</p>
+      </div>
+      <div class="category-list" id="categoryList">
+        <button class="category-chip active" data-category="All">✦ All prompts</button>
+        <button class="category-chip" data-category="Boy Portrait">◉ Boy portraits</button>
+        <button class="category-chip" data-category="Couple">♡ Couple</button>
+        <button class="category-chip" data-category="Fashion">✧ Fashion</button>
+        <button class="category-chip" data-category="Cinematic">▣ Cinematic</button>
+        <button class="category-chip" data-category="AI Video">▷ AI video</button>
+      </div>
+    </section>
+
+    <section class="section prompt-section" id="explore">
+      <div class="section-heading prompt-heading">
+        <div><div class="eyebrow">THE PROMPT LIBRARY</div><h2>Fresh inspiration.<br><span class="gradient-text">Ready to copy.</span></h2></div>
+        <div class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="Search prompts..." aria-label="Search prompts"></div>
+      </div>
+      <div id="promptGrid" class="prompt-grid" aria-live="polite"></div>
+      <div class="empty-state hidden" id="emptyState"><div class="empty-icon">⌕</div><h3>No prompts found</h3><p>Try a different search or category.</p></div>
+    </section>
+
+    <section class="creator-cta" id="about">
+      <div class="cta-star">✦</div>
+      <div><div class="eyebrow">FOR THE NEXT GENERATION OF CREATORS</div><h2>Dream it. Prompt it.<br><span class="gradient-text">Create it.</span></h2><p>Follow Pr7 for more AI photo concepts, cinematic edits and creator inspiration.</p></div>
+      <a class="button button-primary" href="https://www.instagram.com/Pr7.pradeep/" target="_blank" rel="noopener noreferrer">Follow @Pr7.pradeep ↗</a>
+    </section>
+  </main>
+
+  <footer class="site-footer"><a class="footer-brand" href="#">PR7 AI PROMPTS</a><span>Built for creative minds. © <span id="year"></span> Pr7.</span><a href="#explore">Back to top ↑</a></footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog class="admin-dialog" id="adminDialog">
+    <div class="dialog-top"><div><div class="eyebrow">CREATOR CONTROL ROOM</div><h2>Admin <span class="gradient-text">access</span></h2></div><button class="icon-button" id="adminClose" aria-label="Close">×</button></div>
+    <p class="dialog-note">Connect your Supabase project in <code>config.js</code> to enable secure sign-in and cloud publishing. Demo mode lets you preview the dashboard on this device only.</p>
+    <div id="adminStatus" class="status-box">Checking configuration…</div>
+    <form id="loginForm" class="admin-form">
+      <label>Email<input type="email" id="adminEmail" autocomplete="username" placeholder="you@example.com" required></label>
+      <label>Password<input type="password" id="adminPassword" autocomplete="current-password" placeholder="Your admin password" required minlength="6"></label>
+      <button class="button button-primary full-width" type="submit" id="loginButton">Sign in</button>
+    </form>
+    <div id="adminPanel" class="hidden">
+      <div class="admin-toolbar"><h3>Manage prompts</h3><button class="button button-outline" id="logoutButton">Sign out</button></div>
+      <form id="promptForm" class="admin-form">
+        <input type="hidden" id="editId">
+        <label>Prompt title<input id="promptTitle" required maxlength="90" placeholder="e.g. Midnight cinematic portrait"></label>
+        <div class="form-grid">
+          <label>Category<select id="promptCategory"><option>Boy Portrait</option><option>Couple</option><option>Fashion</option><option>Cinematic</option><option>AI Video</option><option>Girl Portrait</option><option>Nature</option></select></label>
+          <label>Image URL (optional)<input id="promptImage" type="url" placeholder="https://..."></label>
+        </div>
+        <label>AI prompt<textarea id="promptText" required rows="5" placeholder="Write the full copy-ready prompt here..."></textarea></label>
+        <div class="form-grid">
+          <label>Tool / tag<input id="promptTag" maxlength="40" placeholder="e.g. Image generation"></label>
+          <label>Credit / note<input id="promptCredit" maxlength="100" placeholder="Optional image credit or note"></label>
+        </div>
+        <div class="admin-actions"><button class="button button-primary" type="submit" id="savePromptButton">Publish prompt</button><button class="button button-quiet hidden" type="button" id="cancelEditButton">Cancel edit</button></div>
+      </form>
+      <div id="adminPromptList" class="admin-prompt-list"></div>
+    </div>
+    <p class="security-note"><span>🔒</span> For real public use, secure admin access with Supabase Auth + database Row Level Security. Never publish an admin password in website code.</p>
+  </dialog>
+
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
