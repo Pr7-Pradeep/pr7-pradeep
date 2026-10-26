@@ -27,35 +27,54 @@
   function categoryGlyph(category) {
     return ({"Boy Portrait":"P7","Girl Portrait":"✧","Couple":"♡","Fashion":"✦","Cinematic":"▣","AI Video":"▷","Nature":"❋"}[category] || "✦");
   }
+  function promptCardMarkup(p, compact=false) {
+    const image = p.image_url && /^https?:\/\//i.test(p.image_url)
+      ? `<img src="${escapeHtml(p.image_url)}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.parentElement.classList.add('placeholder');this.remove()">`
+      : `<div class="placeholder-art" aria-hidden="true">${escapeHtml(categoryGlyph(p.category))}</div>`;
+    return `<article class="prompt-card ${compact ? 'prompt-card-compact' : ''}">
+      <div class="prompt-image ${p.image_url ? "" : "placeholder"}">${image}<span class="prompt-label">${escapeHtml(p.category)}</span></div>
+      <div class="prompt-body"><div class="prompt-meta">${escapeHtml(p.tag || "AI PROMPT")}</div>
+      <h3>${escapeHtml(p.title)}</h3><p class="prompt-excerpt">${escapeHtml(p.prompt)}</p>
+      <div class="prompt-footer"><span class="prompt-tag">${escapeHtml(p.credit || "PR7 PROMPT LIBRARY")}</span><button class="copy-button" data-copy="${escapeHtml(p.id)}">Copy prompt ↗</button></div></div></article>`;
+  }
+  function wirePromptGrid(grid) {
+    if (!grid) return;
+    grid.querySelectorAll("[data-copy]").forEach(btn => btn.addEventListener("click", event => {
+      event.stopPropagation(); copyPrompt(btn.dataset.copy);
+    }));
+    grid.querySelectorAll(".prompt-image").forEach(box => {
+      const img = box.querySelector("img");
+      if (!img) return;
+      box.style.cursor = "zoom-in";
+      box.addEventListener("click", () => window.open(img.src, "_blank", "noopener,noreferrer"));
+    });
+  }
   function render() {
     const query = $("searchInput").value.trim().toLowerCase();
-    const filtered = prompts.filter(p => (activeCategory === "All" || p.category === activeCategory) &&
+    // Cloud records have created_at; local/demo records retain their insertion order.
+    const ordered = [...prompts].sort((a,b) => {
+      const ta = a.created_at ? Date.parse(a.created_at) : 0;
+      const tb = b.created_at ? Date.parse(b.created_at) : 0;
+      if (ta && tb && ta !== tb) return tb - ta;
+      if (ta && !tb) return -1;
+      if (tb && !ta) return 1;
+      return 0;
+    });
+    const filtered = ordered.filter(p => (activeCategory === "All" || p.category === activeCategory) &&
       [p.title,p.category,p.tag,p.prompt].join(" ").toLowerCase().includes(query));
     $("promptCount").textContent = String(prompts.length).padStart(2,"0");
-    $("promptGrid").innerHTML = filtered.map(p => {
-      const image = p.image_url && /^https:\/\/|^http:\/\//i.test(p.image_url)
-        ? `<img src="${escapeHtml(p.image_url)}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="this.parentElement.classList.add('placeholder');this.remove()">`
-        : `<div class="placeholder-art" aria-hidden="true">${escapeHtml(categoryGlyph(p.category))}</div>`;
-      return `<article class="prompt-card">
-        <div class="prompt-image ${p.image_url ? "" : "placeholder"}">${image}<span class="prompt-label">${escapeHtml(p.category)}</span></div>
-        <div class="prompt-body"><div class="prompt-meta">${escapeHtml(p.tag || "AI PROMPT")}</div>
-        <h3>${escapeHtml(p.title)}</h3><p class="prompt-excerpt">${escapeHtml(p.prompt)}</p>
-        <div class="prompt-footer"><span class="prompt-tag">${escapeHtml(p.credit || "PR7 PROMPT LIBRARY")}</span><button class="copy-button" data-copy="${escapeHtml(p.id)}">Copy prompt ↗</button></div></div></article>`;
-    }).join("");
+    $("promptGrid").innerHTML = filtered.map(p => promptCardMarkup(p)).join("");
     $("emptyState").classList.toggle("hidden", filtered.length !== 0);
     $("promptGrid").classList.toggle("hidden", filtered.length === 0);
-    $("promptGrid").querySelectorAll("[data-copy]").forEach(btn => btn.addEventListener("click", () => copyPrompt(btn.dataset.copy)));
+    wirePromptGrid($("promptGrid"));
+
+    // Repeat a small, live-updating latest gallery under the tools to use the right-column space.
+    const latestGrid = $("latestPromptGrid");
+    if (latestGrid) {
+      latestGrid.innerHTML = ordered.slice(0,6).map(p => promptCardMarkup(p, true)).join("");
+      wirePromptGrid(latestGrid);
+    }
   }
-  $("promptGrid").querySelectorAll(".prompt-image").forEach(box => {
-  const img = box.querySelector("img");
-  if (!img) return;
-
-  box.style.cursor = "zoom-in";
-
-  box.addEventListener("click", () => {
-    window.open(img.src, "_blank", "noopener,noreferrer");
-  });
-});
   async function copyPrompt(id) {
     const p = prompts.find(x => String(x.id) === String(id)); if (!p) return;
     try {
