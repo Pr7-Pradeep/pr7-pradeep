@@ -63,3 +63,8 @@ Security:
 - Public website को केवल config.js के जरिए admin password से सुरक्षित नहीं किया जा सकता।
 - Supabase Auth + RLS SQL policies का इस्तेमाल करें।
 - कभी भी service_role key, database password या admin password public files में न डालें।
+
+
+नए Creator Tools
+----------------
+इस version में Photo Resizer/Compressor (browser-side), Translator (external MyMemory API), Resume Maker (Print > Save as PDF), और calculators जोड़े गए हैं। Photo processing local browser में होती है। Translator के लिए text external translation provider को भेजा जाता है; confidential text न डालें। Resume PDF के लिए browser print dialog में Save as PDF चुनें। ZIP download के लिए JSZip CDN पर निर्भरता है; यदि CDN उपलब्ध न हो तो individual images download करें।
